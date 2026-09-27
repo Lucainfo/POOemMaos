@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>POO em Mãos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="estiloPrinc.css">
+    </head>
+    <body>
+
+        <header class="header">
+            <div class="banner-container">
+                <div class="logo">
+                    <img src="imgs/logo.png" alt="Logo POO em mãos">
+                </div>
+
+                <div class="pesq-barra">
+                    <input type="text" id="campo-busca" placeholder="Buscar tradução..." oninput="realizarBusca(this)">
+                    <button type="button" onclick="realizarBusca()">
+                        <img src="imgs/pesq(2).png" alt="Buscar">
+                    </button>
+                </div>
+
+                <div class="notificacao-dropdown">
+                    <button class="btn-notificacao" onclick="toggleNotificacoes(event)">
+                        <img src="imgs/not.png" alt="Notificações" class="icon-notificacao">
+                    </button>
+
+                    <div id="popoverNotificacoes" class="popover-notificacoes escondido">
+                        <div class="popover-header">
+                            <h3>Notificações</h3>
+                        </div>
+                        <div id="popoverBody" class="popover-body">
+                            <p class="mensagem-vazia-notificacao">Nenhuma notificação no momento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-usuario-container">
+                    <div class="icon" id="btn-menu-usuario" onclick="toggleMenuUsuario(event)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#004d40" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+
+                    <div class="popup-usuario escondido" id="popup-usuario" onclick="event.stopPropagation()">
+                        <div class="popup-cabecalho">
+                            <span id="saudacao-usuario">Olá, Usuário</span>
+                        </div>
+                        <div class="popup-corpo">
+                            <a href="visuPerfil.html" class="popup-item">
+                                <svg class="popup-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>Meu perfil</span>
+                            </a>
+                            <a href="login.html" class="popup-item">
+                                <svg class="popup-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                                <span>Sair</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </header>
+
+        <nav class="sub-nav">
+            <div class="nav-links">
+                <a href="#" onclick="abrirModalSolicitacao(event)">Solicitar tradução</a>
+                <a href="favoritos.html">Favoritos</a>
+                <a href="#" onclick="abrirModalAdicionarTermo(event)">Adicionar termos</a>
+                <a href="#" onclick="abrirModalListaSolicitacoes(event)">Lista de solicitações</a>
+            </div>
+        </nav>
+
+        <main class="conteudo-container">
+            <h2 class="titulo-princ">Aprenda um novo termo!</h2>
+
+            <div class="filtro-container">
+                <button id="btn-filtro" class="btn-filtro" onclick="toggleMenuFiltro(event)">
+                    Filtro <span id="label-filtro-ativo"></span>
+                </button>
+                <div id="menuFiltro" class="menu-filtro escondido">
+                    <button type="button" class="opcao-filtro ativo" onclick="filtrarPorNivel('Todos', this)">Todos</button>
+                    <button type="button" class="opcao-filtro" onclick="filtrarPorNivel('Básico', this)">Básico</button>
+                    <button type="button" class="opcao-filtro" onclick="filtrarPorNivel('Intermediário', this)">Intermediário</button>
+                    <button type="button" class="opcao-filtro" onclick="filtrarPorNivel('Avançado', this)">Avançado</button>
+                </div>
+            </div>
+
+            <section id="cards-grid" class="cards-grid">
+
+                <article class="card-link">
+                    <a href="termoClasse.html" target="_blank" class="card-clicavel">
+                        <div class="card">
+                            <div class="video-placeholder">
+                                <video src="videos/classe.mp4#t=0.1" preload="metadata" muted playsinline class="capa-video">
+            </video>
+                                <span class="tag tag-basico">Básico</span>
+                            </div>
+                            <div class="card-corpo">
+                                <div class="card-row">
+                                    <h3>Classe</h3>
+                                    <button class="btn-like" aria-label="Favoritar" data-id="1" onclick= "event.preventDefault();toggleLike(this, 1);">
+                                        <img src="imgs/likeSem.png" alt="Favoritar" class="like-img">
+                                    </button>
+                                </div>
+                                <p class="card-texto">Texto</p>
+                                <span class="ver-mais">Ver mais. . .</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card-link">
+                    <a href="termoPoli.html" target="_blank" class="card-clicavel">
+
+                        <div class="card">
+                            <div class="video-placeholder">
+                                <video src="videos/poli.mp4#t=0.1" preload="metadata" muted playsinline class="capa-video"> </video>
+                                <span class="tag tag-medio">Intermediário </span>
+                            </div>
+                            <div class="card-corpo">
+                                <div class="card-row">
+                                    <h3>Polimorfismo</h3>
+                                    <button class="btn-like" aria-label="Favoritar" data-id="2" onclick="event.preventDefault(); toggleLike(this, 2);">
+                                        <img src="imgs/likeSem.png" alt="Favoritar" class="like-img">
+                                    </button>
+                                </div>
+                                <p class="card-texto">Texto</p>
+                                <span class="ver-mais">Ver mais. . .</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card-link">
+                    <a href="termoAtributos.html" target="_blank" class="card-clicavel">
+                        <div class="card">
+                            <div class="video-placeholder">
+                                 <video src="videos/atributos.mp4#t=0.1" preload="metadata" muted playsinline class="capa-video"> </video>
+                                <span class="tag tag-basico">Básico</span>
+                            </div>
+                            <div class="card-corpo">
+                                <div class="card-row">
+                                    <h3>Atributos</h3>
+                                    <button class="btn-like" aria-label="Favoritar" data-id="3" onclick="event.preventDefault();
+                                            toggleLike(this, 3);">
+                                        <img src="imgs/likeSem.png" alt="Favoritar" class="like-img">
+                                    </button>
+                                </div>
+                                <p class="card-texto">Texto</p>
+                                <span class="ver-mais">Ver mais. . .</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card-link">
+                    <a href="termoInterface.html" target="_blank" class="card-clicavel">
+                        <div class="card">
+                            <div class="video-placeholder">
+                                <video src="videos/interface.mp4#t=0.1" preload="metadata" muted playsinline class="capa-video"> </video>
+                                <span class="tag tag-medio">Intermediário </span>
+                            </div>
+                            <div class="card-corpo">
+                                <div class="card-row">
+                                    <h3>Interface</h3>
+                                    <button class="btn-like" aria-label="Favoritar" data-id="4" onclick="event.preventDefault();
+                                            toggleLike(this, 4);">
+                                        <img src="imgs/likeSem.png" alt="Favoritar" class="like-img">
+                                    </button>
+                                </div>
+                                <p class="card-texto">Texto</p>
+                                <span class="ver-mais">Ver mais. . .</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card-link">
+                    <a href="termoAbs.html" target="_blank" class="card-clicavel">
+                        <div class="card">
+                            <div class="video-placeholder">
+                               <video src="videos/abstracao.mp4#t=0.1" preload="metadata" muted playsinline class="capa-video"> </video>
+                                <span class="tag tag-medio">Intermediário </span>
+                            </div>
+                            <div class="card-corpo">
+                                <div class="card-row">
+                                    <h3>Abstração</h3>
+                                    <button class="btn-like" aria-label="Favoritar" data-id="5" onclick="event.preventDefault();
+                                            toggleLike(this, 5);">
+                                        <img src="imgs/likeSem.png" alt="Favoritar" class="like-img">
+                                    </button>
+                                </div>
+                                <p class="card-texto">Texto</p>
+                                <span class="ver-mais">Ver mais. . .</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card-link">
+                    <a href="termoHeranc.html" target="_blank" class="card-clicavel">
+                        <div class="card">
+                            <div class="video-placeholder">
+                              <video src="videos/Heranca.mp4#t=0.1" preload="metadata" muted playsinline class="capa-video"> </video>
+                                <span class="tag tag-medio">Intermediário </span>
+                            </div>
+                            <div class="card-corpo">
+                                <div class="card-row">
+                                    <h3>Herança</h3>
+                                    <button class="btn-like" aria-label="Favoritar" data-id="6" onclick="event.preventDefault();
+                                            toggleLike(this, 6);">
+                                        <img src="imgs/likeSem.png" alt="Favoritar" class="like-img">
+                                    </button>
+                                </div>
+                                <p class="card-texto">Texto</p>
+                                <span class="ver-mais">Ver mais. . .</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card-link">
+                    <a href="termoObj.html" target="_blank" class="card-clicavel">
+                        <div class="card">
+                            <div class="video-placeholder">
+                                <video src="videos/Objeto.mp4#t=0.1" preload="metadata" muted playsinline class="capa-video"> </video>
+                                <span class="tag tag-basico">Básico</span>
+                            </div>
+                            <div class="card-corpo">
+                                <div class="card-row">
+                                    <h3>Objeto</h3>
+                                    <button class="btn-like" aria-label="Favoritar" data-id="7" onclick="event.preventDefault();
+                                            toggleLike(this, 7);">
+                                        <img src="imgs/likeSem.png" alt="Favoritar" class="like-img">
+                                    </button>
+                                </div>
+                                <p class="card-texto">Texto</p>
+                                <span class="ver-mais">Ver mais. . .</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="card-link">
+                    <a href="termoEncap.html" target="_blank" class="card-clicavel">
+                        <div class="card">
+                            <div class="video-placeholder">
+                                <video src="videos/Encapsulamento.mp4#t=0.1" preload="metadata" muted playsinline class="capa-video"> </video>
+                                <span class="tag tag-medio">Intermediário </span>
+                            </div>
+                            <div class="card-corpo">
+                                <div class="card-row">
+                                    <h3>Encapsulamento</h3>
+                                    <button class="btn-like" aria-label="Favoritar" data-id="8" onclick="event.preventDefault();
+                                            toggleLike(this, 8);">
+                                        <img src="imgs/likeSem.png" alt="Favoritar" class="like-img">
+                                    </button>
+                                </div>
+                                <p class="card-texto">Texto</p>
+                                <span class="ver-mais">Ver mais. . .</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+            </section>
+        </main>
+
+        <script>
+            function toggleMenuUsuario(event) {
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                const popup = document.getElementById('popup-usuario');
+                if (popup) {
+                    popup.classList.toggle('escondido');
+                }
+            }
+
+            document.addEventListener('click', function (event) {
+                const popup = document.getElementById('popup-usuario');
+                const btn = document.getElementById('btn-menu-usuario');
+
+                if (popup && !popup.classList.contains('escondido')) {
+                    if (!popup.contains(event.target) && !btn.contains(event.target)) {
+                        popup.classList.add('escondido');
+                    }
+                }
+            });
+            
+            
+            
+        </script>
+        
+        <script>
+           window.renderizarCards = function(listaTermos) {
+    const container = document.getElementById('container-cards');
+    if (!container) return;
+
+    container.innerHTML = ''; // Limpa os cartões anteriores
+
+    if (!listaTermos || listaTermos.length === 0) {
+        container.innerHTML = '<p class="sem-resultados">Nenhum termo encontrado.</p>';
+        return;
+    }
+
+    listaTermos.forEach(termo => {
+        const cardHTML = `
+            <div class="card-termo">
+                <h3>${termo.nome || termo.titulo}</h3>
+                <span class="badge-nivel">${termo.nivel}</span>
+                <p>${termo.descricao}</p>
+            </div>
+        `;
+        container.innerHTML += cardHTML;
+    });
+};</script>
+        
+        
+        <script>
+            /*
+             *  verifica se foi curtido ou não
+             */
+            function toggleLike(botaoElemento, idTermo) {
+                botaoElemento.disabled = true;
+                const img = botaoElemento.querySelector('img');
+
+                const params = new URLSearchParams();
+                params.append('idTermo', idTermo);
+
+                fetch('FavoritosServlet', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: params
+                })
+                        .then(response => {
+                            if (response.status === 401) {
+
+                                return null;
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (!data)
+                                return;
+
+                            // Atualiza a imagem e classe visualmente com base na resposta da Servlet
+                            if (data.favoritado) {
+                                botaoElemento.classList.add('liked');
+                                if (img)
+                                    img.src = 'imgs/likeCom.png';
+                            } else {
+                                botaoElemento.classList.remove('liked');
+                                if (img)
+                                    img.src = 'imgs/likeSem.png';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro ao alternar favorito:', error);
+                        })
+                        .finally(() => {
+                            botaoElemento.disabled = false;
+                        });
+            }
+        </script>
+     
+        <!-- comment -->
+        <div id="modalSolicitacao" class="fundo-modal escondido" onclick="fecharModalFora(event)">
+            <div class="janela-modal">
+                <button class="botao-fechar-modal" onclick="fecharModalSolicitacao()">&times;</button>
+                
+                
+
+                <div id="conteudoFormulario">
+                    <h3 class="titulo-modal">Qual termo você gostaria que fosse incluído no site?</h3>
+                    <form class="form-modal">
+                        <input type="text" id="campo-solicitacao" placeholder="Digite aqui..." class="campo-modal" required>
+                        <button type="button" class="solicitar-modal" onclick="enviarSolicitacao(event)">Solicitar</button>
+                    </form>
+                </div>
+
+                <div id="mensagemSucesso" class="mensagem-sucesso escondido">
+                    <p><strong>Sua sugestão foi adicionada a uma lista de espera e logo será traduzida.</strong></p>
+                    <p><strong>Agradecemos pela contribuição!</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalAdicionarTermo" class="fundo-modal escondido" onclick="fecharModalAdicionarFora(event)">
+            <div class="janela-modal adicionar-largura">
+                <button class="botao-fechar-modal" onclick="fecharModalAdicionarTermo()">&times;</button>
+
+                <form id="formAdicionarTermo">
+                    <div class="grid-modal">
+                        <div class="coluna-modal">
+                            <div class="grupo-campo">
+                                <label>1. Qual o termo?</label>
+                                <input type="text" name="titulo" placeholder="Digite aqui..." class="campo-modal" required>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label>2. Selecione o nível de dificuldade.</label>
+                                <select name="nivel" class="campo-modal select-modal" required>
+                                    <option value="Básico">Básico</option>
+                                    <option value="Intermediário">Intermediário</option>
+                                    <option value="Avançado">Avançado</option>
+                                </select>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label>3. Explique a definição simples.</label>
+                                <textarea name="descricao" placeholder="Digite aqui..." class="campo-modal textarea-modal" rows="3" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="divisoria-modal"></div>
+
+                        <div class="coluna-modal">
+                            <div class="grupo-campo">
+                                <label>4. Faça upload do vídeo.</label>
+                                <label class="upload-box">
+                                    <input type="file" name="video" accept="video/*" hidden required>
+                                </label>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label>5. Faça upload da capa do vídeo.</label>
+                                <label class="upload-box">
+                                    <input type="file" name="capa" accept="image/*,video/*" hidden required>
+                                </label>
+                            </div>
+
+                            <div class="grupo-campo">
+                                <label>6. Upload das imagens explicativas.</label>
+                                <div class="upload-duplo">
+                                    <label class="upload-box"><input type="file" name="imagem1" accept="image/*" hidden></label>
+                                    <label class="upload-box"><input type="file" name="imagem2" accept="image/*" hidden></label>
+                                </div>
+                            </div>
+                            
+                               <div class="grupo-campo">
+                                <label>7. Exemplo da aplicação do termo em codigo(java) .</label>
+                                <textarea name="exemplo" placeholder="Digite aqui..." class="campo-modal textarea-modal" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        </div>
+                    
+
+                    <div class="botao-adicionar">
+                        <button type="submit" class="botao-adicionar-modal" onclick="enviarNovoTermo(event)">Adicionar</button>
+                    </div>
+                </form>
+
+                <div id="mensagemSucessoAdicionar" class="mensagem-sucesso escondido">
+                    <p><strong>O novo termo foi adicionado ao nosso catálogo com sucesso.</strong></p>
+                    <p><strong>Agradecemos pela contribuição!</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalListaSolicitacoes" class="fundo-modal escondido" onclick="fecharModalListaSolicitacoesFora(event)">
+            <div class="janela-modal solicita-largura">
+                <button class="botao-fechar-modal" onclick="fecharModalListaSolicitacoes()">&times;</button>
+
+                <div class="modal-header-icon">
+                    <img src="imgs/lista.png" alt="Ícone Lista" class="icon-solicitacoes">
+                    <h2 class="titulo-modal-inline">Solicitações</h2>
+                </div>
+
+                <div id="listaSolicitacoesContainer" class="lista-solicitacoes-container">
+                    <p class="mensagem-vazia">Nenhuma solicitação pendente no momento.</p>
+                </div>
+            </div>
+        </div>
+        
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Atente-se ao nome correto do Servlet: FavoritosServlet
+                fetch('FavoritosServlet')
+                        .then(response => {
+                            if (response.status === 401)
+                                return []; // Usuário não logado
+                            return response.json();
+                        })
+                        .then(favoritos => {
+                            if (!Array.isArray(favoritos))
+                                return;
+
+                            // Extrai os IDs salvos
+                            const idsFavoritados = favoritos.map(f => Number(f.id || f.idTermo));
+
+                            // Percorre os botões da página principal e atualiza as imagens
+                            document.querySelectorAll('.btn-like').forEach(botao => {
+                                const termoId = Number(botao.getAttribute('data-id'));
+                                if (idsFavoritados.includes(termoId)) {
+                                    const img = botao.querySelector('.like-img');
+                                    if (img)
+                                        img.src = 'imgs/likeCom.png';
+                                }
+                            });
+                        })
+                        .catch(erro => console.error("Erro ao carregar estado dos favoritos:", erro));
+            });
+        </script>
+
+        <script src="solici.js"></script>
+        <script src="favs.js"></script>
+        <script src="pesquisas.js"></script>
+        <script src="adicionar.js"></script>
+        <script src="nomeUser.js"></script>
+        <script src="lista.js"></script>
+        <script src="noti.js"></script>
+        <script src="filtro.js"></script>
+        <script src="notificacoes.js"></script>
+    </body>
+</html>
+
+

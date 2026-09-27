@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>POO em Mãos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="estiloPrinc.css">
+    </head>
+    <body>
+
+        <header class="header">
+            <div class="banner-container">
+                <div class="logo">
+                    <img src="imgs/logo.png" alt="Logo POO em mãos">
+                </div>
+
+                <div class="pesq-barra">
+                    <input type="text" placeholder="Buscar tradução...">
+                    <button type="submit">
+                        <img src="imgs/pesq(2).png" alt="Buscar">
+                    </button>
+                </div>
+
+                <div class="header-direita">
+                    <button class="btn-contato">Nos contate!</button>
+
+                    <div class="menu-usuario-container">
+                        <div class="icon" id="btn-menu-usuario" onclick="toggleMenuUsuario(event)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#004d40" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+
+                        <div class="popup-usuario escondido" id="popup-usuario" onclick="event.stopPropagation()">
+                            <div class="popup-cabecalho">
+                                <span id="saudacao-usuario">Olá, Usuário</span>
+                            </div>
+                            <div class="popup-corpo">
+                                <a href="visuPerfil.html" class="popup-item">
+                                    <svg class="popup-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <span>Meu perfil</span>
+                                </a>
+                                <a href="login.html" class="popup-item">
+                                    <svg class="popup-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                    </svg>
+                                    <span>Sair</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <nav class="sub-nav">
+            <div class="nav-links">
+                <a href="#" onclick="abrirModalSolicitacao(event)">Solicitar tradução</a>
+                <a href="favoritos.html">Favoritos</a>
+                <a href="#" onclick="abrirModalAdicionarTermo(event)">Adicionar termos</a>
+            </div>
+        </nav>
+
+
+        <main class="container-entrada">
+
+            <div class="card-perfil">
+
+                <div class="cabecalho-caixa">
+                    <img src="imgs/importante.png" alt="Ícone Perfil" class="icon-cabecalho">
+                    <h3>Meu perfil</h3>
+                </div>
+
+                <form class="conteudo-perfil" id="form-perfil">
+
+                    <div class="foto-container">
+                        <label for="input-foto" class="label-foto" title="Clique para alterar a foto">
+                            <img src="imgs/usuario-exemplo.jpg" alt="Foto de perfil" id="preview-foto" class="foto-perfil">
+                            <span>Alterar foto</span>
+                        </label>
+                        <input type="file" id="input-foto" accept="image/*" class="input-foto-escondido" onchange="previewImagem(event)">
+                    </div>
+
+
+                    <div class="dados-container">
+                        <div class="grupo-campo">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome" class="campo-modal" required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" class="campo-modal" required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="cargo">Cadastrado como:</label>
+                            <select id="cargo" class="campo-modal select-modal" required>
+                                <option value="ALUNO">Estudante</option>
+                                <option value="PROFESSOR">Professor</option>
+                                <option value="TRADUTOR">Tradutor</option>
+                                <option value="OUTROS">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="area-botoes">
+                        <button type="submit" class="btn-perfil btn-salvar" onclick="salvarEdicaoPerfil">Salvar</button>
+                        <button type="button" class="btn-perfil btn-cancelar" onclick="cancelarEdicao()">Cancelar</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+
+                carregarDadosPerfil();
+
+                const formPerfil = document.getElementById('form-perfil');
+                if (formPerfil) {
+                    formPerfil.addEventListener('submit', salvarEdicaoPerfil);
+                }
+            });
+            async function carregarDadosPerfil() {
+                try {
+                    const resposta = await fetch('PerfilServlet');
+                    if (resposta.ok) {
+                        const usuario = await resposta.json();
+
+                        document.getElementById('nome').value = usuario.nome || '';
+                        document.getElementById('email').value = usuario.email || '';
+                        
+                     
+               
+                        const selectCargo = document.getElementById('cargo');
+                        const tipo = (usuario.tipo || '').toUpperCase();
+                        if (tipo === 'ALUNO')
+                            selectCargo.value = 'ALUNO';
+                        else if (tipo === 'PROFESSOR')
+                            selectCargo.value = 'PROFESSOR';
+                        else if(tipo === 'TRADUTOR')
+                            selectCargo.value = 'TRADUTOR';
+                        else
+                            selectTipo.value = 'OUTROS';
+
+
+                    } else if (resposta.status === 401) {
+
+                    }
+                } catch (erro) {
+                    console.error("Erro ao carregar perfil:", erro);
+                }
+            }
+
+            async function salvarEdicaoPerfil(event) {
+                event.preventDefault(); // Impede o envio padrão da página
+
+                const nome = document.getElementById('nome').value;
+                const email = document.getElementById('email').value;
+                const cargoInput = document.getElementById('cargo').value;
+
+                // Converte a opção do HTML para o ENUM do banco
+                let tipoEnum = 'ALUNO';
+                if (cargoInput === 'Professor')
+                    tipoEnum = 'PROFESSOR';
+                else if (cargoInput === 'Outros')
+                    tipoEnum = 'OUTROS';
+
+                const params = new URLSearchParams();
+                params.append('nome', nome);
+                params.append('email', email);
+                params.append('tipo', tipoEnum);
+
+                try {
+                    const resposta = await fetch('PerfilServlet', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                        },
+                        body: params
+                    });
+
+                    const resultado = await resposta.json();
+
+                    if (resposta.ok) {
+                        alert(resultado.mensagem);
+                    } else {
+                        alert("Erro: " + resultado.mensagem);
+                    }
+                } catch (erro) {
+                    console.error("Erro ao salvar alterações:", erro);
+                    alert("Erro de comunicação com o servidor.");
+                }
+            }
+
+
+// Função que você já havia criado para converter a foto em exibição visual (Base64)
+            function previewImagem(event) {
+                const input = event.target;
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById('preview-foto').src = e.target.result;
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+// Restaura os dados originais se o usuário cancelar
+            function cancelarEdicao() {
+                if (confirm('Deseja descartar as alterações não salvas?')) {
+                    carregarDadosPerfil();
+                }
+            }
+
+        </script>
+ <script src="nomeUser.js"></script>
+    </body>
+</html>

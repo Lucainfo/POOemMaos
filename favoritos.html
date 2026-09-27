@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Meus Favoritos</title>
+        <link rel="stylesheet" href="estiloPrinc.css">
+    </head>
+    <body>
+
+        <header class="header">
+            <div class="banner-container">
+                <div class="logo">
+                    <img src="imgs/logo.png" alt="Logo POO em mãos">
+                </div>
+
+                <div class="pesq-barra">
+                    <input type="text" id="campo-busca" placeholder="Buscar tradução..." oninput="realizarBusca(this)">
+                    <button type="button" onclick="realizarBusca()">
+                        <img src="imgs/pesq(2).png" alt="Buscar">
+                    </button>
+                </div>
+
+                <div class="notificacao-dropdown">
+                    <button class="btn-notificacao" onclick="toggleNotificacoes(event)">
+                        <img src="imgs/not.png" alt="Notificações" class="icon-notificacao">
+                    </button>
+
+                    <div id="popoverNotificacoes" class="popover-notificacoes escondido">
+                        <div class="popover-header">
+                            <h3>Notificações</h3>
+                        </div>
+                        <div id="popoverBody" class="popover-body">
+                            <p class="mensagem-vazia-notificacao">Nenhuma notificação no momento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-usuario-container">
+                    <div class="icon" id="btn-menu-usuario" onclick="toggleMenuUsuario(event)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#004d40" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+
+                    <div class="popup-usuario escondido" id="popup-usuario" onclick="event.stopPropagation()">
+                        <div class="popup-cabecalho">
+                            <span id="saudacao-usuario">Olá, Usuário</span>
+                        </div>
+                        <div class="popup-corpo">
+                            <a href="visuPerfil.html" class="popup-item">
+                                <svg class="popup-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>Meu perfil</span>
+                            </a>
+                            <a href="login.html" class="popup-item">
+                                <svg class="popup-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                                <span>Sair</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </header>
+
+        <nav class="sub-nav">
+            <div class="nav-links">
+                <a href="#" onclick="abrirModalSolicitacao(event)">Solicitar tradução</a>
+                <a href="favoritos.html">Favoritos</a>
+                <a href="#" onclick="abrirModalAdicionarTermo(event)">Adicionar termos</a>
+                <a href="#" onclick="abrirModalListaSolicitacoes(event)">Lista de solicitações</a>
+            </div>
+        </nav>
+
+        <main class="conteudo-container">
+            <h2 class="titulo-princ">Seus termos favoritos!</h2>
+
+
+            <button class="btn-filtro">Filtro</button>
+            <div id="container-favoritos" class="cards-grid"></div>
+
+        </main>
+        
+         <script>
+            function toggleMenuUsuario(event) {
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                const popup = document.getElementById('popup-usuario');
+                if (popup) {
+                    popup.classList.toggle('escondido');
+                }
+            }
+
+            document.addEventListener('click', function (event) {
+                const popup = document.getElementById('popup-usuario');
+                const btn = document.getElementById('btn-menu-usuario');
+
+                if (popup && !popup.classList.contains('escondido')) {
+                    if (!popup.contains(event.target) && !btn.contains(event.target)) {
+                        popup.classList.add('escondido');
+                    }
+                }
+            });
+        </script>
+
+        <script src="favs.js"></script>
+        <script src="adicionar.js"></script>
+        <script src="nomeUser.js"></script>
+        <script src="noti.js"></script>
+         <script src="solici.js"></script>

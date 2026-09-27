@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Classe</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="estiloPrinc.css">
+    </head>
+    <body>
+
+        <header class="header">
+            <div class="banner-container">
+                <div class="logo">
+                    <img src="imgs/logo.png" alt="Logo POO em mãos">
+                </div>
+
+                <div class="pesq-barra">
+                    <input type="text" placeholder="Buscar tradução...">
+                    <button type="submit">
+                        <img src="imgs/pesq(2).png" alt="Buscar">
+                    </button>
+                </div>
+
+                <div class="header-direita">
+                    <button class="btn-contato">Nos contate!</button>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#004d40" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="sub-nav">
+            <div class="nav-links">
+                <a href="#" onclick="abrirModalSolicitacao(event)">Solicitar tradução</a>
+                <a href="#">Favoritos</a>
+                <a href="#">Adicionar termos</a>
+            </div>
+        </nav>
+
+        <main class="termo-container">
+            <h2 class="termo-titulo">Classe</h2>
+
+            <section class="media-grid tres-colunas">
+                <div class="media-box">
+                    <h3>Vídeo</h3>
+                    <video src="videos/classe.mp4" controls class="video-termo"></video>
+                </div>
+
+                <div class="media-box">
+                    <h3>Imagem</h3>
+                    <div class="modelo-azul">
+                        <img src="imgs/Classe.png" alt="Imagem descritiva">
+                    </div>
+                </div>
+                <div class="media-box">
+                    <h3>&nbsp;</h3>
+                    <div class="modelo-azul">
+                        <img src="imgs/Classe01.png">
+                    </div>
+                </div>
+            </section>
+
+            <div class="expla-tag-container">
+                <span class="expla-tag">Explicação <small>- Libras</small></span>
+            </div>
+
+            <section class="expla-panel">
+                <div class="expla-coluna">
+                    <h3>Conceito</h3>
+                    <p>Modelo que define as características (atributos) e as ações (métodos) que os objetos criados a partir dela terão.</p>
+                    <div class="ex-ilustacao"></div>
+                </div>
+
+                <div class="divisor-vertical"></div>
+
+                <div class="expla-coluna">
+                    <h3>Tradução</h3>
+                    <p> MODELO DEFINIR ATRIBUTO + COMPORTAMENTO <br>
+                        OBJETO VIR-DE CLASSE
+                    </p>
+                    <br><br>
+                      <h3>Exemplo em JAVA</h3>
+                      <p>declarando uma classe</p>
+                    <pre> public class Calculadora { 
+                                   }</pre>
+                </div>
+            </section>
+        </main>
+
+    </body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>POO em Mãos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="estiloPrinc.css">
+    </head>
+    <body>
+
+        <header class="header">
+            <div class="banner-container">
+                <div class="logo">
+                    <img src="imgs/logo.png" alt="Logo POO em mãos">
+                </div>
+
+                <div class="pesq-barra">
+                    <input type="text" placeholder="Buscar tradução...">
+                    <button type="submit">
+                        <img src="imgs/pesq(2).png" alt="Buscar">
+                    </button>
+                </div>
+
+                <div class="notificacao-dropdown">
+                    <button class="btn-notificacao" onclick="toggleNotificacoes(event)">
+                        <img src="imgs/not.png" alt="Notificações" class="icon-notificacao">
+                    </button>
+
+                    <div id="popoverNotificacoes" class="popover-notificacoes escondido">
+                        <div class="popover-header">
+                            <h3>Notificações</h3>
+                        </div>
+                        <div id="popoverBody" class="popover-body">
+                            <p class="mensagem-vazia-notificacao">Nenhuma notificação no momento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-usuario-container">
+                    <div class="icon" id="btn-menu-usuario" onclick="toggleMenuUsuario(event)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#004d40" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+
+                    <div class="popup-usuario escondido" id="popup-usuario" onclick="event.stopPropagation()">
+                        <div class="popup-cabecalho">
+                            <span>Olá, Usuário</span>
+                        </div>
+                        <div class="popup-corpo">
+                            <a href="visuPerfil.html" class="popup-item">
+                                <svg class="popup-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>Meu perfil</span>
+                            </a>
+                            <a href="login.html" class="popup-item">
+                                <svg class="popup-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                                <span>Sair</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </header>
+
+        <nav class="sub-nav">
+            <div class="nav-links">
+                <span>Solicitar tradução</span>
+                <span>Favoritos</span>
+                <span>Adicionar termos</span>
+                <span>Lista de solicitações</span>
+            </div>
+        </nav>
+
+        <main class="conteudo-container container-entrada">
+
+            <div id="tela-bem-vindo" class="janela-modal card-entrada ativo">
+                <div class="boas-vindas">
+                    <img src="imgs/logo.png" alt="POO em mãos">
+                </div>
+
+                <h2 class="titulo-modal">Bem-vindo!</h2>
+
+                <p class="texto">
+                    Nosso objetivo é tornar a aprendizagem dos conceitos fundamentais de programação acessível, prática e inclusiva para a comunidade surda e todos os estudantes.<br><br>
+                    Aqui você encontra alguns termos técnicos explicados com sinais em Libras, demonstrações visuais e exemplos práticos.
+                </p>
+
+                <button class="solicitar-modal" onclick="mostrarTela('tela-login')">Próximo</button>
+            </div>
+
+            <div id="tela-login" class="janela-modal card-entrada">
+                <div class="cabecalho-caixa">
+                    <h3>Faça login</h3>
+                </div>
+
+                <form class="form-modal" onsubmit="realizarLogin(event)">
+                    <div class="grupo-campo campo-entrada">
+                        <label>
+                            <img src="imgs/nome.png" alt="Email" class="icon-campo">
+                            E-mail:
+                        </label>
+                        <input type="email" class="campo-modal" required>
+                    </div>
+
+                    <div class="grupo-campo campo-entrada">
+                        <label>
+                            <img src="imgs/senha.png" alt="Senha" class="icon-campo">
+                            Senha:
+                        </label>
+                        <input type="password" class="campo-modal" required>
+                    </div>
+
+                    <div class="cadastro">
+                        <img src="imgs/importante.png" alt="Aviso" class="icon-aviso">
+                        <div>
+                            Não tem conta?<br>
+                            <a href="#" onclick="mostrarTela('tela-cadastro'); return false;">Cadastre-se</a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="solicitar-modal">Entrar</button>
+                </form>
+            </div>
+
+            <div id="tela-cadastro" class="janela-modal card-entrada">
+                <div class="cabecalho-caixa">
+                    <img src="imgs/importante.png" alt="Cadastro" class="icon-cabecalho">
+                    <h3>Cadastro</h3>
+                </div>
+
+                <form class="form-modal" onsubmit="realizarCadastro(event)">
+                    <div class="grupo-campo campo-entrada">
+                        <label>
+                            <img src="imgs/email.png" alt="Email" class="icon-campo">
+                            Nome:
+                        </label>
+                        <input type="text" class="campo-modal" required>
+                    </div>
+
+                    <div class="grupo-campo campo-entrada">
+                        <label>
+                            <img src="imgs/nome.png" alt="Email" class="icon-campo">
+                            E-mail:
+                        </label>
+                        <input type="email" class="campo-modal" required>
+                    </div>
+
+                    <div class="grupo-campo campo-entrada">
+                        <label>
+                            <img src="imgs/senha.png" alt="Senha" class="icon-campo">
+                            Senha:
+                        </label>
+                        <input type="password" class="campo-modal" required>
+                    </div>
+
+                    <div class="grupo-campo campo-entrada">
+                        <label>
+                            <img src="imgs/cadastro.png" alt="Cargo" class="icon-campo">
+                            Cadastre-se como:
+                        </label>
+                        <select class="campo-modal select-modal" required>
+                            <option value="" disabled selected>Selecione uma opção</option>
+                            <option value="ALUNO">Estudante</option>
+                            <option value="PROFESSOR">Professor</option>
+                            <option value="TRADUTOR">Tradutor</option>
+                            <option value="OUTROS">Outros</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="solicitar-modal">Entrar</button>
+                </form>
+            </div>
+
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                carregarDadosPerfil();
+            });
+
+            function carregarDadosPerfil() {
+
+                const nomeSalvo = localStorage.getItem('nomeUsuario') || '';
+                const emailSalvo = localStorage.getItem('emailUsuario') || '';
+                const tipoSalvo = localStorage.getItem('tipoUsuario') || 'Aluno';
+
+                const inputNome = document.getElementById('nome');
+                const inputEmail = document.getElementById('email');
+                const inputTipo = document.getElementById('tipo');
+
+                if (inputNome)
+                    inputNome.value = nomeSalvo;
+                if (inputEmail)
+                    inputEmail.value = emailSalvo;
+                if (inputTipo)
+                    inputTipo.value = tipoSalvo;
+
+                const elementoOla = document.querySelector('.popup-cabecalho span');
+                if (elementoOla && nomeSalvo) {
+                    elementoOla.textContent = `Olá, ${nomeSalvo}`;
+                }
+            }
+          document.getElementById('form-perfil')?.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+                const nome = document.getElementById('nome').value;
+                const email = document.getElementById('email').value;
+                const tipo = document.getElementById('cargo').value;
+
+                const params = new URLSearchParams();
+                params.append('nome', nome);
+                params.append('email', email);
+                params.append('tipo', tipo);
+                params.append('acao', 'atualizar');
+
+                fetch('UsuarioServer', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                    body: params
+                })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'sucesso') {
+                                alert('Perfil atualizado com sucesso!');
+
+
+                                localStorage.setItem('nomeUsuario', nome);
+                                localStorage.setItem('emailUsuario', email);
+                                localStorage.setItem('tipoUsuario', tipo);
+
+
+                                document.querySelector('.popup-cabecalho span').textContent = `Olá, ${nome}`;
+                            } else {
+                                alert(data.mensagem || 'Erro ao atualizar perfil.');
+                            }
+                        })
+                        .catch(erro => {
+                            console.error('Erro ao atualizar:', erro);
+                            alert('Falha ao conectar com o servidor.');
+                        });
+            });
+
+
+            function toggleMenuUsuario(event) {
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                const popup = document.getElementById('popup-usuario');
+                if (popup) {
+                    popup.classList.toggle('escondido');
+                }
+            }
+
+            document.addEventListener('click', function (event) {
+                const popup = document.getElementById('popup-usuario');
+                const btn = document.getElementById('btn-menu-usuario');
+
+                if (popup && !popup.classList.contains('escondido')) {
+                    if (!popup.contains(event.target) && !btn.contains(event.target)) {
+                        popup.classList.add('escondido');
+                    }
+                }
+            });
+        </script>
+
+        <script src="login.js"></script>
+        <script src="adicionar.js"></script>
+    </body>
+</html>
